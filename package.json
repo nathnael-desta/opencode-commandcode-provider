@@ -1,0 +1,13 @@
+{
+  "name": "opencode-commandcode-provider",
+  "version": "0.1.0",
+  "description": "Command Code API provider for opencode (via Vercel AI SDK LanguageModelV3)",
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": ["index.ts", "src/"],
+  "license": "MIT",
+  "peerDependencies": {
+    "ai": ">=5.0.0"
+  }
+}
