@@ -1,7 +1,7 @@
 {
   "name": "opencode-commandcode-provider",
   "version": "0.1.0",
-  "description": "Command Code API provider for opencode (via Vercel AI SDK LanguageModelV3)",
+  "description": "Command Code API provider for opencode — use Claude, GPT, Gemini, DeepSeek, Qwen, Kimi, GLM, MiniMax, and Step models via Command Code",
   "type": "module",
   "main": "index.ts",
   "types": "index.ts",
@@ -9,8 +9,33 @@
     ".": "./index.ts",
     "./server": "./plugin.ts"
   },
-  "files": ["index.ts", "src/"],
+  "files": ["index.ts", "plugin.ts", "models.json", "src/"],
   "license": "MIT",
+  "author": "Brent Weatherall",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brent-weatherall/opencode-commandcode-provider.git"
+  },
+  "homepage": "https://github.com/brent-weatherall/opencode-commandcode-provider#readme",
+  "bugs": {
+    "url": "https://github.com/brent-weatherall/opencode-commandcode-provider/issues"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-provider",
+    "opencode-plugin",
+    "commandcode",
+    "ai",
+    "llm",
+    "claude",
+    "gpt",
+    "gemini",
+    "deepseek",
+    "qwen",
+    "kimi",
+    "glm",
+    "minimax"
+  ],
   "scripts": {
     "sync": "bun run scripts/sync-models.ts",
     "sync:global": "bun run scripts/sync-models.ts --update-global"
