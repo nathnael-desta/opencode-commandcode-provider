@@ -79,7 +79,7 @@ COMMANDCODE_API_KEY=your-key opencode
 | `Qwen/Qwen3.7-Max`                         | Qwen 3.7 Max                | open-source  | yes | 1M     |
 | `stepfun/Step-3.5-Flash`                   | Step 3.5 Flash              | open-source  | yes | 1M     |
 
-Full model list is maintained in [`models.json`](./models.json). Run `bun run sync` to refresh from Command Code's pricing page.
+Full model list is maintained in [`models.json`](./models.json). Run `bun run sync` to refresh from the latest Command Code CLI release on npm.
 
 ## Development
 
