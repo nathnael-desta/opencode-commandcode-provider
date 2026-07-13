@@ -21,7 +21,7 @@ const rows = models.map((m) => {
   const id = `\`${m.id}\``
   const tier = m.tier === "premium" ? "premium" : "open-source"
   const ctx = m.limit.context >= 1_000_000 ? `${(m.limit.context / 1_000_000).toFixed(0)}M` : `${(m.limit.context / 1000).toFixed(0)}K`
-  return `| ${id.padEnd(42)} | ${m.name.padEnd(27)} | ${tier.padEnd(12)} | ${m.reasoning ? "yes" : "no".padEnd(3)} | ${ctx.padEnd(6)} |`
+  return `| ${id.padEnd(42)} | ${m.name.padEnd(27)} | ${tier.padEnd(12)} | ${(m.reasoning ? "yes" : "no").padEnd(3)} | ${ctx.padEnd(6)} |`
 })
 
 const tableHeader = "| Model ID | Name | Tier | Reasoning | Context |"
@@ -31,7 +31,7 @@ const table = [tableHeader, separator, ...rows].join("\n")
 const readme = readFileSync(README, "utf-8")
 
 const startMarker = "## Available Models"
-const endMarker = "Full model list is maintained in"
+const endMarker = "The table above reflects the bundled offline catalog."
 
 const startIdx = readme.indexOf(startMarker)
 const endIdx = readme.indexOf(endMarker, startIdx)

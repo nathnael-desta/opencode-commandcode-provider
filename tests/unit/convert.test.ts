@@ -211,6 +211,13 @@ test("passes through temperature, topP, topK", () => {
   expect(req.params.top_k).toBe(40)
 })
 
+test("passes Command Code reasoning effort", () => {
+  const req = buildRequest("gpt-5.6-sol", makeOpts({
+    providerOptions: { commandcode: { reasoningEffort: "high" } },
+  }))
+  expect(req.params.reasoning_effort).toBe("high")
+})
+
 test("defaults max_tokens to 16384 when not provided", () => {
   const req = buildRequest("m", makeOpts({ maxOutputTokens: undefined }))
   expect(req.params.max_tokens).toBe(16384)

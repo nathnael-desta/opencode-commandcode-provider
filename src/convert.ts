@@ -59,6 +59,7 @@ interface CCRequestEnvelope {
     temperature?: number
     top_p?: number
     top_k?: number
+    reasoning_effort?: string
   }
 }
 
@@ -199,6 +200,11 @@ export function buildRequest(
   if (options.temperature !== undefined) params.temperature = options.temperature
   if (options.topP !== undefined) params.top_p = options.topP
   if (options.topK !== undefined) params.top_k = options.topK
+
+  const providerOptions = options.providerOptions?.commandcode
+  if (typeof providerOptions?.reasoningEffort === "string") {
+    params.reasoning_effort = providerOptions.reasoningEffort
+  }
 
   return {
     config: {

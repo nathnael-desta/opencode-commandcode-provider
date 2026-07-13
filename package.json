@@ -50,8 +50,7 @@
     "test:all": "bun test",
     "typecheck": "tsc --noEmit",
     "generate-readme": "bun run scripts/generate-readme.ts",
-    "sync": "bun run scripts/sync-models.ts",
-    "sync:global": "bun run scripts/sync-models.ts --update-global"
+    "sync": "bun run scripts/sync-models.ts"
   },
   "type": "module",
   "types": "index.ts",

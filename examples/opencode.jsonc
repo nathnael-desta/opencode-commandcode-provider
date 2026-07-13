@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["commandcode-go-opencode-provider/server"],
+  "provider": {
+    "commandcode": {
+      "npm": "commandcode-go-opencode-provider",
+      "name": "Command Code",
+      "env": ["COMMANDCODE_API_KEY"]
+    }
+  },
+  "default_agent": "orchestrator",
+  "agent": {
+    "orchestrator": {
+      "description": "Routes work to the cheapest capable agent and asks before expensive escalation.",
+      "mode": "primary",
+      "model": "commandcode/gpt-5.6-sol",
+      "variant": "low",
+      "prompt": "Classify each request before acting. Delegate routine implementation and exploration to routine. Use deep for complex analysis. Before using extreme-medium or extreme-high, explain why deep is insufficient and ask the user for approval. Never escalate only because a task is long."
+    },
+    "routine": {
+      "description": "Handles routine coding, research, and fast-path work at the permanent discounted rate.",
+      "mode": "subagent",
+      "model": "commandcode/deepseek-v4-pro",
+      "variant": "high"
+    },
+    "deep": {
+      "description": "Handles difficult debugging, architecture, and synthesis.",
+      "mode": "subagent",
+      "model": "commandcode/gpt-5.6-sol",
+      "variant": "low"
+    },
+    "extreme-medium": {
+      "description": "Escalation tier for exceptional tasks; requires user approval before delegation.",
+      "mode": "subagent",
+      "model": "commandcode/gpt-5.6-sol",
+      "variant": "medium"
+    },
+    "extreme-high": {
+      "description": "Highest escalation tier; requires explicit user approval before delegation.",
+      "mode": "subagent",
+      "model": "commandcode/gpt-5.6-sol",
+      "variant": "high"
+    }
+  }
+}

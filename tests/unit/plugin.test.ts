@@ -139,3 +139,51 @@ test("config hook creates provider block if missing", async () => {
   expect(cc).toBeDefined()
   expect(cc.npm).toBe("commandcode-go-opencode-provider")
 })
+
+test("config hook discovers models missing from the bundled catalog", async () => {
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = async () => new Response(JSON.stringify({
+    data: [
+      { id: "gpt-5.6-sol", name: "GPT-5.6 Sol", context_length: 1_050_000 },
+      { id: "new/model", name: "New Model", context_length: 500_000 },
+    ],
+  }))
+
+  try {
+    const plugin = await pluginFn()
+    const config: Record<string, unknown> = { provider: { commandcode: {} } }
+    await plugin.config(config)
+
+    const cc = (config.provider as Record<string, Record<string, unknown>>).commandcode
+    const models = cc.models as Record<string, Record<string, unknown>>
+    expect(models["gpt-5.6-sol"].name).toBe("GPT-5.6 Sol")
+    expect(models["gpt-5.6-sol"].limit).toEqual({ context: 1_050_000, output: 65_536 })
+    expect(models["gpt-5.6-sol"].variants).toEqual({
+      low: { reasoningEffort: "low" },
+      medium: { reasoningEffort: "medium" },
+      high: { reasoningEffort: "high" },
+      xhigh: { reasoningEffort: "xhigh" },
+      max: { reasoningEffort: "max" },
+    })
+    expect(models.model.name).toBe("New Model")
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+})
+
+test("config hook falls back to bundled models when discovery fails", async () => {
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = async () => { throw new Error("offline") }
+
+  try {
+    const plugin = await pluginFn()
+    const config: Record<string, unknown> = { provider: { commandcode: {} } }
+    await plugin.config(config)
+
+    const cc = (config.provider as Record<string, Record<string, unknown>>).commandcode
+    const models = cc.models as Record<string, unknown>
+    expect(models["deepseek-v4-pro"]).toBeDefined()
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+})
