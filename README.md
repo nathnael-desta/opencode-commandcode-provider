@@ -91,14 +91,6 @@ For T3 Code and other GUI integrations, use `/connect` instead of a shell
 alias. GUI-launched `opencode serve` processes do not evaluate Bash aliases.
 See [T3 Code Integration](docs/t3-code.md) for setup and diagnostics.
 
-## Routing Preset
-
-[`examples/opencode.jsonc`](examples/opencode.jsonc) provides an optional
-cost-aware orchestration preset. It uses DeepSeek V4 Pro for routine work,
-GPT-5.6 Sol low for orchestration and deep work, and asks before escalating to
-Sol medium or high. See [Model Routing Policy](docs/model-routing.md) for the
-rationale and permanent-deal policy.
-
 ## Available Models
 
 | Model ID | Name | Tier | Reasoning | Context |
